@@ -1,0 +1,190 @@
+interface FieldErrors {
+  [fieldName: string]: string[];
+}
+
+interface ApiErrorData {
+  message?: string;
+  error?: {
+    code?: number;
+    message?: string;
+    params?: {
+      constraint_type?: string;
+      constraint?: string;
+      field_errors?: FieldErrors;
+      [key: string]: unknown;
+    };
+  };
+  [key: string]: unknown;
+}
+
+export interface ApiError extends Error {
+  status: number;
+  data: ApiErrorData;
+  fieldErrors?: FieldErrors;
+}
+
+export const handleApiError = async (response: Response): Promise<Response> => {
+  if (!response.ok) {
+    const errorData = (await response.json().catch(() => ({}))) as ApiErrorData;
+
+    let errorMessage =
+      errorData.message || `HTTP ${response.status}: ${response.statusText}`;
+
+    // Handle validation errors (400)
+    if (response.status === 400 && errorData.error?.params?.field_errors) {
+      const fieldErrors = errorData.error.params.field_errors;
+
+      // Flatten nested field errors and normalize to arrays
+      const flattenErrors = (obj: unknown, prefix = ""): FieldErrors => {
+        const result: FieldErrors = {};
+
+        if (typeof obj === "string") {
+          result[prefix || "field"] = [obj];
+        } else if (Array.isArray(obj)) {
+          result[prefix || "field"] = obj.map(String);
+        } else if (obj && typeof obj === "object") {
+          Object.entries(obj).forEach(([key, value]) => {
+            // Skip "data" wrapper, use prefix directly
+            const nextPrefix =
+              key === "data" ? prefix : prefix ? `${prefix}.${key}` : key;
+            Object.assign(result, flattenErrors(value, nextPrefix));
+          });
+        }
+
+        return result;
+      };
+
+      const flattenedErrors = flattenErrors(fieldErrors);
+      const errorMessages = Object.entries(flattenedErrors).map(
+        ([field, messages]) => `${field}: ${messages.join(", ")}`
+      );
+
+      if (errorMessages.length > 0) {
+        errorMessage = `Validation failed: ${errorMessages.join("; ")}`;
+      }
+
+      const error = new Error(errorMessage) as ApiError;
+      error.status = response.status;
+      error.data = errorData;
+      error.fieldErrors = flattenedErrors;
+      throw error;
+    }
+
+    // Handle unique constraint error (409) and other errors with params
+    if (response.status === 409 && errorData.error?.params) {
+      const { constraint_type, constraint, ...fieldErrors } =
+        errorData.error.params;
+
+      // Check if params contain field-level error messages (like email, etc.)
+      const errorFields = Object.keys(fieldErrors).filter(
+        key => typeof fieldErrors[key] === "string"
+      );
+
+      if (errorFields.length > 0) {
+        // Use the first field error message directly
+        errorMessage = String(fieldErrors[errorFields[0]]);
+
+        const error = new Error(errorMessage) as ApiError;
+        error.status = response.status;
+        error.data = errorData;
+        error.fieldErrors = errorFields.reduce((acc, field) => {
+          acc[field] = [String(fieldErrors[field])];
+          return acc;
+        }, {} as FieldErrors);
+        throw error;
+      }
+
+      // Fallback to constraint-based messages
+      if (constraint_type === "unique" && constraint === "unique_together") {
+        errorMessage =
+          "This entry already exists. Please use a different value.";
+      } else if (constraint_type === "unique") {
+        errorMessage =
+          "This entry already exists. Please use a different value.";
+      }
+    }
+
+    // Handle other specific status codes
+    if (response.status === 413) {
+      errorMessage = "File size too large. Maximum allowed size is 5MB.";
+    }
+
+    if (response.status === 415) {
+      errorMessage = "Invalid file type. Please upload a valid image file.";
+    }
+
+    const error = new Error(errorMessage) as ApiError;
+    error.status = response.status;
+    error.data = errorData;
+    throw error;
+  }
+  return response;
+};
+
+// File validation utility
+export const validateFile = (
+  file: File
+): { valid: boolean; error?: string } => {
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
+  const MIN_FILE_SIZE = 1 * 1024 * 1024; // 1MB in bytes
+  const ALLOWED_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+
+  if (file.size > MAX_FILE_SIZE) {
+    return {
+      valid: false,
+      error: "File size must not exceed 5MB",
+    };
+  }
+
+  if (!ALLOWED_TYPES.includes(file.type)) {
+    return {
+      valid: false,
+      error: "Invalid file type. Please upload a JPEG, PNG, or WebP image",
+    };
+  }
+
+  return { valid: true };
+};
+
+// URL validation utility
+export const validateUrl = (url: string): boolean => {
+  if (!url || url.trim() === "") return true;
+
+  try {
+    const urlObj = new URL(url);
+    return urlObj.protocol === "http:" || urlObj.protocol === "https:";
+  } catch {
+    return false;
+  }
+};
+
+// Social media URL validators
+export const validateSocialUrls = (data: {
+  facebook?: string;
+  instagram?: string;
+  linkedin?: string;
+  twitter?: string;
+}): { valid: boolean; errors: FieldErrors } => {
+  const errors: FieldErrors = {};
+
+  if (data.facebook && !validateUrl(data.facebook)) {
+    errors.facebook = ["Enter a valid URL"];
+  }
+
+  if (data.instagram && !validateUrl(data.instagram)) {
+    errors.instagram = ["Enter a valid URL"];
+  }
+
+  if (data.linkedin && !validateUrl(data.linkedin)) {
+    errors.linkedin = ["Enter a valid URL"];
+  }
+
+  if (data.twitter && !validateUrl(data.twitter)) {
+    errors.twitter = ["Enter a valid URL"];
+  }
+
+  return {
+    valid: Object.keys(errors).length === 0,
+    errors,
+  };
+};
