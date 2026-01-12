@@ -42,6 +42,8 @@ interface CartContextType {
   clearCart: () => void;
   itemCount: number;
   totalPrice: number;
+  isCartOpen: boolean;
+  setIsCartOpen: (isOpen: boolean) => void;
 }
 
 export const CartContext = createContext<CartContextType | undefined>(
@@ -54,6 +56,7 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
     // Load cart from localStorage on initial render
@@ -176,6 +179,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     clearCart,
     itemCount,
     totalPrice,
+    isCartOpen,
+    setIsCartOpen,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
