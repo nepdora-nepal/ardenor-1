@@ -110,9 +110,7 @@ export const Footer: React.FC = () => {
                     <div className="text-[11px] text-neutral-500 tracking-[0.2em] uppercase space-y-2">
                         <div>Verin<sup>®</sup>. All rights reserved. © 2026</div>
                     </div>
-                    <div className="text-[11px] text-neutral-500 tracking-[0.2em] uppercase mt-8 md:mt-0">
-                        Made by <a href="#" className="text-white border-b border-white/20 pb-0.5 hover:border-white transition-all">Nepdora</a> with Next.js 14
-                    </div>
+
                 </div>
 
                 <motion.div
