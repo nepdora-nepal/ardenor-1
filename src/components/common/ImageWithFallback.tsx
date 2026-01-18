@@ -69,7 +69,7 @@ const ImageWithFallback = (props: ImageWithFallbackProps) => {
             {imageElement}
 
             <div
-                className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-50 cursor-pointer"
+                className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-40 cursor-pointer"
                 onClick={() => {
                     setManagerTab("library");
                     setShowManager(true);
