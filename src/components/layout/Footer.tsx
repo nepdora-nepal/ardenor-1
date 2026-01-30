@@ -57,15 +57,6 @@ export const Footer: React.FC = () => {
 
                     <div className="md:col-span-3 grid grid-cols-2 gap-8">
                         <div className="space-y-6">
-                            <h4 className="text-[9px] uppercase tracking-[0.4em] text-neutral-500 font-bold">Template</h4>
-                            <ul className="space-y-4 text-[13px] font-light text-neutral-400">
-                                <li><span className="hover:text-white cursor-pointer transition-colors">Style Guide</span></li>
-                                <li><span className="hover:text-white cursor-pointer transition-colors">Licenses</span></li>
-                                <li><span className="hover:text-white cursor-pointer transition-colors">Changelog</span></li>
-                                <li><span className="hover:text-white cursor-pointer transition-colors font-medium text-neutral-200">More Templates</span></li>
-                            </ul>
-                        </div>
-                        <div className="space-y-6">
                             <h4 className="text-[9px] uppercase tracking-[0.4em] text-neutral-500 font-bold">Legal</h4>
                             <ul className="space-y-4 text-[13px] font-light text-neutral-400">
                                 <li><Link href="/" className="hover:text-white transition-colors">Privacy Policy</Link></li>

@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
         <ProductGrid
           title="Carried with Intention"
           subtitle="Soft structures, precise form — bags designed to hold more than what you carry."
-          limit={6}
+          limit={4}
         />
       </React.Suspense>
 
