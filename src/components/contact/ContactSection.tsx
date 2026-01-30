@@ -70,10 +70,6 @@ export default function ContactSection() {
           </h1>
         </div>
 
-        <p className="text-neutral-500 font-light text-sm md:text-base max-w-lg mx-auto leading-relaxed">
-          Have a question about our collections or need assistance with an
-          order? Our relationship team is here to provide exceptional service.
-        </p>
       </div>
 
       <div className="max-w-xl mx-auto relative z-20">

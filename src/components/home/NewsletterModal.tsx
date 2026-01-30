@@ -91,12 +91,12 @@ export default function NewsletterModal() {
               <button
                 type="submit"
                 disabled={isPending}
-                className="w-full bg-black text-white py-4 text-[10px]  tracking-[0.2em] font-bold hover:bg-neutral-800 transition-colors disabled:bg-neutral-400"
+                className="w-full bg-black text-white py-4 text-[10px]   font-bold hover:bg-neutral-800 transition-colors disabled:bg-neutral-400"
               >
                 {isPending ? "Subscribing..." : "Subscribe"}
               </button>
             </form>
-            <p className="text-[9px]  tracking-[0.2em] text-neutral-400 mt-8">
+            <p className="text-[9px]   text-neutral-400 mt-8">
               By subscribing you agree to our Terms & Conditions
             </p>
           </div>

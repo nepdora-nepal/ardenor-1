@@ -89,7 +89,7 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
 
             {/* Quantity Selector */}
             <div className="mb-8 md:mb-10">
-              <label className="text-[9px]  tracking-[0.2em] font-bold text-neutral-900 mb-4 block">
+              <label className="text-[9px]   font-bold text-neutral-900 mb-4 block">
                 SELECT QUANTITY
               </label>
               <div className="flex items-center border border-neutral-200 bg-white px-4 py-3 w-32 justify-between rounded-sm shadow-sm">

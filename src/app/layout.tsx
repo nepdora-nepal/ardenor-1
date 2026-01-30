@@ -10,6 +10,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/cart/CartDrawer";
 import  WhatsAppButton  from "@/components/layout/WhatsAppButton";
+import  {CustomerPublishAuthProvider}  from "@/contexts/AuthContext";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
         "min-h-screen antialiased font-sans",
         dmSans.variable
       )}>
+        <CustomerPublishAuthProvider>
         <QueryProvider>
           <CartProvider>
             <div className="flex flex-col min-h-screen">
@@ -46,6 +48,7 @@ export default function RootLayout({
             <Toaster />
           </CartProvider>
         </QueryProvider>
+        </CustomerPublishAuthProvider>
       </body>
     </html>
   );

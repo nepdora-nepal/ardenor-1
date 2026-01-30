@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import SuccessSection from '@/components/checkout/SuccessSection';
+import OrderSuccessContent from '@/components/checkout/SuccessSection';
 
  export default function SuccessPage() {
     return (
@@ -8,7 +8,7 @@ import SuccessSection from '@/components/checkout/SuccessSection';
                 <div className="animate-pulse text-lg ">Confirming Order...</div>
             </div>
         }>
-            <SuccessSection />
+            <OrderSuccessContent />
         </Suspense>
     );
 };

@@ -51,7 +51,7 @@ export default function TestimonialSection() {
 
               <div className="space-y-1">
                 <h3 className="text-xs   font-bold">{testimonial.name}</h3>
-                <p className="text-[10px]  tracking-[0.2em] text-neutral-400">
+                <p className="text-[10px]   text-neutral-400">
                   {testimonial.designation}
                 </p>
               </div>

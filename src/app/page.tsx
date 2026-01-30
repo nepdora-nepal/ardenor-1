@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { motion } from "framer-motion";
 import Hero from "@/components/home/Hero";
 import CategoryGrid from "@/components/home/CategoryGrid";
@@ -11,6 +11,7 @@ import FeaturedHighlight from "@/components/home/FeaturedHighlight";
 import PopularProducts from "@/components/home/PopularProducts";
 import FAQSection from "@/components/faq/FAQSection";
 import ContactSection from "@/components/contact/ContactSection";
+import ProductGridSkeleton from "@/components/product/ProductGridSkeleton";
 
 export default function HomePage() {
   return (
@@ -23,11 +24,15 @@ export default function HomePage() {
       <Hero />
       <CategoryGrid />
 
-      <FeaturedProducts />
+      <Suspense fallback={<ProductGridSkeleton limit={4} />}>
+        <FeaturedProducts />
+      </Suspense>
 
       <FeaturedHighlight />
 
-      <PopularProducts />
+      <Suspense fallback={<ProductGridSkeleton limit={4} />}>
+        <PopularProducts />
+      </Suspense>
 
       <FAQSection />
 

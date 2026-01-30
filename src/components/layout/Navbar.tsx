@@ -36,7 +36,7 @@ export default function Navbar() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ${navBg} ${navTextColor}`}
         >
-            <div className="max-w-7xl mx-auto px-8 md:px-12 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto  flex items-center justify-between">
                 {/* Logo */}
                 <Link
                     href="/"

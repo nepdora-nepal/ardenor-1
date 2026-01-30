@@ -51,7 +51,7 @@ export default function RecentBlogsSection({
       <h2 className="text-7xl md:text-8xl  mb-3 tracking-tight leading-[1.1]">
         Continue Reading
       </h2>
-      <p className="text-[10px]  tracking-[0.2em] font-bold text-neutral-400 mb-10">
+      <p className="text-[10px]   font-bold text-neutral-400 mb-10">
         Discover new perspectives, inspirations, and reflections, a closer look
         into the world and rhythm of Verin.
       </p>
@@ -75,21 +75,21 @@ export default function RecentBlogsSection({
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-white/90 backdrop-blur-sm px-3 py-1 text-[8px]  tracking-[0.2em] font-bold">
+                  <span className="bg-white/90 backdrop-blur-sm px-3 py-1 text-[8px]   font-bold">
                     {blog.tags?.[0]?.name || "Story"}
                   </span>
                 </div>
               </div>
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
-                  <span className="text-[10px]  tracking-[0.2em] font-bold text-neutral-400">
+                  <span className="text-[10px]   font-bold text-neutral-400">
                     {new Date(blog.created_at).toLocaleDateString("en-US", {
                       month: "long",
                       year: "numeric",
                     })}
                   </span>
                   <span className="w-1 h-1 bg-neutral-300 rounded-full" />
-                  <span className="text-[10px]  tracking-[0.2em] font-bold text-neutral-400">
+                  <span className="text-[10px]   font-bold text-neutral-400">
                     {blog.time_to_read || "5 min"} read
                   </span>
                 </div>

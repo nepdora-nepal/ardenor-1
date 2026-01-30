@@ -17,7 +17,7 @@ export default function BlogDetailContent({ blog }: BlogDetailContentProps) {
     <article className="max-w-5xl mx-auto px-10">
       {/* Breadcrumbs & Category */}
       <div className="flex items-center justify-between mb-16">
-        <div className="flex items-center space-x-2 text-[10px]  tracking-[0.2em] font-bold text-neutral-400">
+        <div className="flex items-center space-x-2 text-[10px]   font-bold text-neutral-400">
           <Link href="/news" className="hover:text-black transition-colors">
             News
           </Link>
@@ -67,7 +67,7 @@ export default function BlogDetailContent({ blog }: BlogDetailContentProps) {
             />
           </div>
           <div>
-            <h4 className="text-[10px]  tracking-[0.2em] font-bold">
+            <h4 className="text-[10px]   font-bold">
               {blog.author
                 ? `${blog.author.first_name} ${blog.author.last_name}`
                 : "Fashion Editor"}
@@ -80,7 +80,7 @@ export default function BlogDetailContent({ blog }: BlogDetailContentProps) {
         <div className="flex items-center space-x-12">
           <div className="flex items-center space-x-2">
             <Calendar className="w-3 h-3 text-neutral-300" />
-            <span className="text-[10px]  tracking-[0.2em] font-bold text-neutral-500">
+            <span className="text-[10px]   font-bold text-neutral-500">
               {new Date(blog.created_at).toLocaleDateString("en-US", {
                 month: "long",
                 day: "numeric",
@@ -90,7 +90,7 @@ export default function BlogDetailContent({ blog }: BlogDetailContentProps) {
           </div>
           <div className="flex items-center space-x-2">
             <Clock className="w-3 h-3 text-neutral-300" />
-            <span className="text-[10px]  tracking-[0.2em] font-bold text-neutral-500">
+            <span className="text-[10px]   font-bold text-neutral-500">
               {blog.time_to_read || "7 min"} read
             </span>
           </div>
